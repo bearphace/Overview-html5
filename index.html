@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Overview V.01</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+	<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+	<!-- Import EaselJS Framework -->
+		<script src="lib/createjs/easeljs/utils/UID.js"></script>
+		<script src="lib/createjs/easeljs/geom/Matrix2D.js"></script>
+		<script src="lib/createjs/easeljs/events/MouseEvent.js"></script>
+		<script src="lib/createjs/easeljs/geom/Point.js"></script>
+		<script src="lib/createjs/easeljs/display/SpriteSheet.js"></script>
+		<script src="lib/createjs/easeljs/display/Shadow.js"></script>
+		<script src="lib/createjs/easeljs/display/DisplayObject.js"></script>
+		<script src="lib/createjs/easeljs/display/Container.js"></script>
+		<script src="lib/createjs/easeljs/display/Stage.js"></script>
+		<script src="lib/createjs/easeljs/display/Bitmap.js"></script>
+		<script src="lib/createjs/easeljs/display/Graphics.js"></script>
+		<script src="lib/createjs/easeljs/display/Shape.js"></script>
+		<script src="lib/createjs/easeljs/utils/Ticker.js"></script>
+		<script src="lib/createjs/easeljs/geom/Matrix2D.js"></script>
+		<script src="lib/createjs/easeljs/display/Text.js"></script>
+<!-- End EaselJS Imports -->
+	<script>
+
+	var myBox;
+
+		function init() {
+			// get a reference to the canvas we'll be working with:
+			var canvas = document.getElementById("testCanvas");
+			
+			// create a stage object to work with the canvas. This is the top level node in the display list:
+			stage = new Stage(canvas);
+			
+			// Create a new Text object:
+			text = new Text("Hello World!", "36px Arial", "#000");
+			// add the text as a child of the stage. This means it will be drawn any time the stage is updated
+			// and that it's transformations will be relative to the stage coordinates:
+			stage.addChild(text);
+			
+			// position the text on screen, relative to the stage coordinates:
+			text.x = 100;
+			text.y = 100;
+
+			var myBox = new Shape();
+			var g = myBox.graphics;
+			g.beginFill("#000000");
+			g.drawRect(3,3,100,100);
+			stage.addChild(myBox);
+			
+			// add a text object to output the current FPS:
+				fpsLabel = new Text("-- fps","bold 18px Arial","#FFF");
+				stage.addChild(fpsLabel);
+				fpsLabel.x = 10;
+				fpsLabel.y = 20;
+
+			// call update on the stage to make it render the current display list to the canvas:
+			stage.update();
+			// start the tick and point it at the window so we can do some work before updating the stage:
+			Ticker.addListener(window);
+			Ticker.setFPS(50);
+		}
+
+		function tick() {
+			//var w = canvas.width;
+			//var h = canvas.height;
+			var l = stage.getNumChildren()-1;
+			console.log($(window).width());
+			text.x += 1
+			
+			fpsLabel.text = Math.round(Ticker.getMeasuredFPS())+" fps";
+			
+			// draw the updates to stage:
+			stage.update();
+
+		}
+
+
+	</script>
+</head>
+<body>
+	 <a href="http://jquery.com/">jQuery</a>
+	<div class="canvasHolder">
+		<canvas id="testCanvas"></canvas>
+	</div>
+	<script>
+     $(document).ready(function(){
+       $("a").click(function(event){
+         alert("As you can see, the link no longer took you to jquery.com");
+         event.preventDefault();
+       });
+   });
+   </script>
+</body>
+</html>
